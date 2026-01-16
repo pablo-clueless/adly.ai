@@ -4,6 +4,7 @@ export * from "./footer";
 export * from "./footer";
 export * from "./header";
 export * from "./loader";
+export * from "./logo";
 export * from "./navbar";
 export * from "./otp-input";
 export * from "./scroll-area";

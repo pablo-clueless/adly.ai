@@ -60,7 +60,7 @@ export const FOOTER_ROUTES = [
     name: "company",
     links: [
       { label: "Features", href: "/features" },
-      { label: "Pricing", href: "/" },
+      { label: "Pricing", href: "/pricing" },
       { label: "Integrations", href: "/" },
       { label: "Help Center", href: "/help-center" },
     ],

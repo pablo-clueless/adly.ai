@@ -6,11 +6,11 @@ export const Footer = () => {
   return (
     <footer className="bg-foreground">
       <div className="container mx-auto">
-        <div className="flex w-full items-start gap-x-40 py-10 lg:py-20">
+        <div className="flex w-full flex-wrap items-start justify-between gap-40 py-10 lg:py-20">
           <div className="w-[300px]">
             <p className="text-6xl font-semibold text-white">Adly.ai</p>
           </div>
-          <div className="flex flex-1 flex-wrap items-start justify-between">
+          <div className="flex flex-1 flex-wrap items-start justify-between gap-10">
             {FOOTER_ROUTES.map(({ links }, index) => (
               <div className="flex min-w-[300px] flex-col gap-y-3" key={index}>
                 {links.map((link, index) => (
