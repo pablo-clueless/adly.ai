@@ -15,3 +15,27 @@ export type RouteProps = {
   icon: RemixiconComponentType;
   label: string;
 };
+
+export interface HttpError {
+  message: string;
+  status: number;
+}
+
+export interface HttpResponse<T> {
+  data: T;
+  message: string;
+  status: number;
+}
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  page: number;
+  pageSize: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface PaginationParams {
+  page: number;
+  size: number;
+}

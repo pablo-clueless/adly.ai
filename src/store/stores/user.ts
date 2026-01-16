@@ -24,8 +24,8 @@ interface UserStore {
   user: Maybe<UserProps>;
 }
 
-const STORAGE_KEY = "user-store";
-const COOKIE_NAME = "";
+export const STORAGE_KEY = "user-store";
+export const COOKIE_NAME = "";
 const COOKIE_OPTIONS = {
   path: "/",
   sameSite: "lax" as const,
