@@ -1,4 +1,4 @@
-import type { NextURL } from "next/dist/server/web/next-url";
+// import type { NextURL } from "next/dist/server/web/next-url";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
@@ -21,16 +21,16 @@ export function proxy(request: NextRequest) {
   const url = request.nextUrl.clone();
   const has_token = request.cookies.has("");
 
-  const redirect = (url: NextURL | string) => {
-    const destination = typeof url === "string" ? url : url.toString();
-    const response = NextResponse.redirect(destination);
-    response.headers.set("x-middleware-cache", "no-cache");
-    return response;
-  };
+  // const redirect = (url: NextURL | string) => {
+  //   const destination = typeof url === "string" ? url : url.toString();
+  //   const response = NextResponse.redirect(destination);
+  //   response.headers.set("x-middleware-cache", "no-cache");
+  //   return response;
+  // };
 
   if (!has_token && protected_routes.some((path) => url.pathname.startsWith(path))) {
-    // url.pathname = "/signin";
-    return redirect(url);
+    url.pathname = "/signin";
+    // return redirect(url);
   }
 
   return NextResponse.next({

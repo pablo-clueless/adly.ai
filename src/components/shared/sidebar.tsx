@@ -52,8 +52,9 @@ export const Sidebar = ({ type }: Props) => {
           {routes.map(({ href, icon: Icon, label }, index) => (
             <Link
               className={cn(
-                "flex items-center gap-x-4 rounded-md px-3 py-2 text-sm transition-colors",
-                isOnPath(href) ? "text-primary-500 font-semibold" : "text-gray-500 hover:bg-gray-300",
+                "flex items-center gap-x-4 rounded-md text-sm transition-colors",
+                isOnPath(href) ? "text-primary-500 font-semibold" : "hover:bg-primary-50/50 text-gray-500",
+                isSidebarOpen ? "px-3 py-2" : "p-2",
               )}
               href={href}
               key={index}

@@ -37,10 +37,6 @@ export const Header = () => {
               </div>
               <hr />
               <div className=""></div>
-              <hr />
-              <div className="">
-                <button className="text-sm font-medium">Switch Account</button>
-              </div>
             </PopoverContent>
           </Popover>
         </div>

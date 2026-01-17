@@ -5,10 +5,10 @@ import { FOOTER_ROUTES } from "@/config/routes";
 export const Footer = () => {
   return (
     <footer className="bg-foreground">
-      <div className="container mx-auto max-w-6xl">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-0">
         <div className="grid w-full grid-cols-1 gap-10 py-10 sm:grid-cols-2 sm:gap-40 lg:py-20">
           <div className="">
-            <p className="text-6xl font-semibold text-white">Adflow.ai</p>
+            <p className="text-3xl font-semibold text-white sm:text-6xl">Adflow.ai</p>
           </div>
           <div className="grid grid-cols-2 gap-5">
             {FOOTER_ROUTES.map((route, index) => (

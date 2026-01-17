@@ -1,17 +1,16 @@
 import React, { Suspense } from "react";
 
-import { Header } from "@/components/shared";
+import { Header, Sidebar } from "@/components/shared";
 
 interface Props {
   children: React.ReactNode;
-  sidebar: React.ReactNode;
 }
 
-const AdminLayout = ({ children, sidebar }: Props) => {
+const AdminLayout = ({ children }: Props) => {
   return (
     <Suspense>
       <div className="flex h-screen w-screen items-center">
-        {sidebar}
+        <Sidebar type="admin" />
         <div className="h-full w-full">
           <Header />
           <div className="h-[calc(100%-56px)] w-full overflow-hidden">{children}</div>

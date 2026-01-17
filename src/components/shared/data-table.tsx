@@ -51,7 +51,7 @@ export const DataTable = <TData, TValue>({ columns, data }: Props<TData, TValue>
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} className="text-sm font-medium text-neutral-400">
+                  <TableHead key={header.id} className="text-primary-500 text-sm font-medium">
                     {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 );
