@@ -86,3 +86,13 @@ export const toCamelCase = (str: string) => {
 export const toSnakeCase = (str: string) => {
   return str.toLowerCase().replace(/ /g, "_");
 };
+
+export const formatCurrency = (amount: number, currency = "NGN") => {
+  return new Intl.NumberFormat("en-NG", {
+    currency,
+    currencyDisplay: "symbol",
+    style: "currency",
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  }).format(amount);
+};

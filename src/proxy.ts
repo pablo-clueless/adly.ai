@@ -29,8 +29,8 @@ export function proxy(request: NextRequest) {
   };
 
   if (!has_token && protected_routes.some((path) => url.pathname.startsWith(path))) {
-    url.pathname = "/signin";
-    // return redirect(url);
+    // url.pathname = "/signin";
+    return redirect(url);
   }
 
   return NextResponse.next({

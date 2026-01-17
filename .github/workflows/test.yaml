@@ -1,4 +1,4 @@
-name: build-check
+name: test
 
 on:
   pull_request:
@@ -28,8 +28,14 @@ jobs:
       - name: install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: check code
-        run: pnpm run check-code
+      - name: run unit tests
+        run: pnpm run test:unit
 
-      - name: build
-        run: pnpm run build
+      # - name: run coverage
+      #   run: pnpm run test:coverage
+
+      # - name: install playwright browsers
+      #   run: pnpm exec playwright install --with-deps chromium
+
+      # - name: run e2e tests
+      #   run: pnpm run test:e2e

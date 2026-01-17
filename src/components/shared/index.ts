@@ -1,5 +1,6 @@
 export * from "./bread-crumb";
 export * from "./calendar";
+export * from "./data-table";
 export * from "./footer";
 export * from "./footer";
 export * from "./header";
@@ -9,5 +10,6 @@ export * from "./navbar";
 export * from "./otp-input";
 export * from "./scroll-area";
 export * from "./sidebar";
+export * from "./stepper";
 export * from "./tab-panel";
 export * from "./tag-header";

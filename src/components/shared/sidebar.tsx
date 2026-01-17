@@ -1,4 +1,5 @@
 "use client";
+
 import { RiLayoutLeft2Line } from "@remixicon/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -52,7 +53,7 @@ export const Sidebar = ({ type }: Props) => {
             <Link
               className={cn(
                 "flex items-center gap-x-4 rounded-md px-3 py-2 text-sm transition-colors",
-                isOnPath(href) ? "text-primary-500" : "text-gray-500 hover:bg-gray-300",
+                isOnPath(href) ? "text-primary-500 font-semibold" : "text-gray-500 hover:bg-gray-300",
               )}
               href={href}
               key={index}

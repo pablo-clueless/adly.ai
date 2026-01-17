@@ -72,6 +72,8 @@ const useUserStore = createPersistMiddleware<UserStore>(STORAGE_KEY, (set, get) 
     id: "1",
     image: "/assets/images/avatar.png",
     name: "Johnny Appleseed",
+    permissions: [],
+    role: "ADMIN",
     updatedAt: new Date(),
   },
   isHydrated: false,
