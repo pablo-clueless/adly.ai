@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 import { Header } from "@/components/shared";
 
@@ -9,13 +9,15 @@ interface Props {
 
 const AdminLayout = ({ children, sidebar }: Props) => {
   return (
-    <div className="flex h-screen w-screen items-center">
-      {sidebar}
-      <div className="h-full w-full">
-        <Header />
-        <div className="h-[calc(100%-56px)] w-full overflow-hidden p-4">{children}</div>
+    <Suspense>
+      <div className="flex h-screen w-screen items-center">
+        {sidebar}
+        <div className="h-full w-full">
+          <Header />
+          <div className="h-[calc(100%-56px)] w-full overflow-hidden p-4">{children}</div>
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 };
 

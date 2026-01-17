@@ -1,3 +1,5 @@
+"use client";
+
 import { useReactToPrint, type UseReactToPrintFn } from "react-to-print";
 import React from "react";
 
