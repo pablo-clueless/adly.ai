@@ -1,4 +1,4 @@
-name: build-check
+name: test
 
 on:
   pull_request:
