@@ -12,10 +12,10 @@ const Page = () => {
       <div className="w-screen">
         <section className="container mx-auto h-screen max-w-6xl py-20 sm:py-40">
           <div className="grid h-full w-full place-items-center">
-            <div className="flex flex-col items-center gap-y-10 sm:gap-y-20">
-              <div className="flex items-end gap-10">
-                <p className="text-primary-500 text-4xl font-semibold sm:text-9xl">Adflow.ai</p>
-                <p className="max-w-md text-base text-gray-600 sm:text-lg">
+            <div className="flex flex-col items-center gap-y-10 px-4 sm:gap-y-20 sm:px-0">
+              <div className="flex flex-col items-center gap-10 sm:flex-row sm:items-end">
+                <p className="text-primary-500 text-5xl font-semibold sm:text-9xl">Adflow.ai</p>
+                <p className="max-w-md text-center text-base text-gray-600 sm:text-left sm:text-lg">
                   The AI-powered ads manager that automates campaign creation, optimizes spend across every channel, and
                   delivers real-time insights so your team can scale ROAS without scaling headcount.
                 </p>
@@ -24,7 +24,7 @@ const Page = () => {
             </div>
           </div>
         </section>
-        <section className="container mx-auto max-w-6xl space-y-6 py-10 sm:py-20">
+        <section className="container mx-auto max-w-6xl space-y-6 px-4 py-10 sm:px-0 sm:py-20">
           <div className="space-y-4">
             <TagHeader title="how it works" />
             <p className="text-primary-500 text-3xl sm:text-6xl">
@@ -44,7 +44,7 @@ const Page = () => {
             ))}
           </div>
         </section>
-        <section className="container mx-auto max-w-6xl space-y-6 py-10 sm:py-20">
+        <section className="container mx-auto max-w-6xl space-y-6 px-4 py-10 sm:px-0 sm:py-20">
           <div className="flex w-full flex-col items-center gap-y-10 sm:gap-y-20">
             <div className="space-y-4">
               <TagHeader title="benefits" />
@@ -63,7 +63,7 @@ const Page = () => {
           </div>
         </section>
         <section className="bg-primary-500 w-full text-white">
-          <div className="container mx-auto max-w-6xl space-y-6 py-10 sm:py-20">
+          <div className="container mx-auto max-w-6xl space-y-6 px-4 py-10 sm:px-0 sm:py-20">
             <div className="space-y-4">
               <TagHeader title="features" inverted />
               <p className="text-3xl text-gray-200 sm:text-6xl">Discover the tools that power smarter campaigns</p>
@@ -81,14 +81,14 @@ const Page = () => {
             </div>
           </div>
         </section>
-        <section className="container mx-auto max-w-6xl space-y-6 py-10 sm:py-20">
+        <section className="container mx-auto max-w-6xl space-y-6 px-4 py-10 sm:px-0 sm:py-20">
           <div className="space-y-4">
             <TagHeader title="reviews" />
             <p className="text-primary-500 text-3xl sm:text-6xl">Trusted by thousands of marketers worldwide</p>
           </div>
           <div className=""></div>
         </section>
-        <section className="container mx-auto max-w-6xl space-y-6 py-10 sm:py-20">
+        <section className="container mx-auto max-w-6xl space-y-6 px-4 py-10 sm:px-0 sm:py-20">
           <div className="grid w-full grid-cols-1 sm:grid-cols-3">
             <div className="space-y-4">
               <TagHeader title="frequently asked questions" />
@@ -105,9 +105,9 @@ const Page = () => {
           </div>
         </section>
         <section className="bg-image-1 w-full bg-black/50 bg-cover bg-no-repeat bg-blend-overlay">
-          <div className="container mx-auto max-w-6xl space-y-6 py-10 sm:py-20">
+          <div className="container mx-auto max-w-6xl space-y-6 px-4 py-10 sm:px-0 sm:py-20">
             <div className="flex flex-col items-center gap-y-10 sm:gap-y-20">
-              <p className="text-center text-3xl font-medium text-white sm:text-6xl">
+              <p className="text-center text-3xl text-white sm:text-6xl">
                 Ready to scale your ad performance without scaling your team?
               </p>
               <Button asChild size="xl">
