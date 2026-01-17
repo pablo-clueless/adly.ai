@@ -1,10 +1,33 @@
-import { RiGoogleLine } from "@remixicon/react";
+"use client";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import { RiGoogleLine } from "@remixicon/react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import * as z from "zod";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+const schema = z.object({
+  email: z.string().min(1, "Email is required").email("Invalid email address"),
+});
+
+type FormProps = z.infer<typeof schema>;
 
 const Page = () => {
+  const router = useRouter();
+  const { control, handleSubmit } = useForm<FormProps>({
+    defaultValues: { email: "" },
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = (values: FormProps) => {
+    console.log({ values });
+    router.push("/verification");
+  };
+
   return (
     <div className="grid h-full w-full place-items-center">
       <div className="flex w-[320px] flex-col items-center gap-y-10">
@@ -14,9 +37,17 @@ const Page = () => {
             <p className="text-lg font-medium">Welcome back</p>
           </div>
         </div>
-        <form className="w-full space-y-4">
-          <Input />
-          <Button className="w-full">Continue</Button>
+        <form className="w-full space-y-4" onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            name="email"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <Input onChange={onChange} placeholder="Enter your email" type="email" value={value} />
+            )}
+          />
+          <Button className="w-full" type="submit">
+            Continue
+          </Button>
         </form>
         <Button className="w-full" variant="outline">
           <RiGoogleLine /> Continue with Google

@@ -1,8 +1,9 @@
 "use client";
 
+import { useFormContext, Controller } from "react-hook-form";
 import React from "react";
 
-interface Props {
+interface OtpInputProps {
   onChange: (value: string) => void;
   value: string;
   disabled?: boolean;
@@ -12,7 +13,7 @@ interface Props {
   readOnly?: boolean;
 }
 
-export const OtpInput = ({ onChange, value, disabled, error, helperText, length = 4, readOnly }: Props) => {
+const OtpInput = ({ onChange, value, disabled, error, helperText, length = 4, readOnly }: OtpInputProps) => {
   const values = React.useMemo(() => {
     return Array.from({ length: length }, (_, i) => value[i] || "");
   }, [length, value]);
@@ -54,15 +55,12 @@ export const OtpInput = ({ onChange, value, disabled, error, helperText, length 
       e.preventDefault();
       return focusToNextInput(target);
     }
-
     if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
       e.preventDefault();
       return focusToLastInput(target);
     }
-
     target.setSelectionRange(0, target.value.length);
     if (e.key !== "Backspace" || target.value !== "") return;
-
     focusToLastInput(target);
   };
 
@@ -101,3 +99,49 @@ const MemoizedInput = React.memo(
 );
 
 MemoizedInput.displayName = "OTP Input";
+
+interface FormOtpInputProps {
+  name: string;
+  label?: string;
+  description?: string;
+  length?: number;
+  disabled?: boolean;
+  readOnly?: boolean;
+}
+
+const FormOtpInput = ({ name, label, description, length = 4, disabled, readOnly }: FormOtpInputProps) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+  const error = errors[name];
+  const errorMessage = error?.message as string | undefined;
+
+  return (
+    <div className="space-y-2">
+      {label && (
+        <label htmlFor={name} className="block text-center text-sm font-medium text-gray-900">
+          {label}
+        </label>
+      )}
+
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <OtpInput
+            value={field.value || ""}
+            onChange={field.onChange}
+            length={length}
+            disabled={disabled}
+            readOnly={readOnly}
+            error={error ? { touched: true, message: errorMessage } : undefined}
+            helperText={description}
+          />
+        )}
+      />
+    </div>
+  );
+};
+
+export { OtpInput, FormOtpInput };

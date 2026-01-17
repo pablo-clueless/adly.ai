@@ -20,6 +20,8 @@
   --color-primary-700: #62231b;
   --color-primary-800: #3b1510;
   --color-primary-900: #270e0b;
+
+  --radius: 8px;
 }
 
 @theme inline {
