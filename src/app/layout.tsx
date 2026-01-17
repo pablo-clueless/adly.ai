@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { ErrorBoundary } from "@/components/providers/error-boundary";
 import { Redux } from "@/components/providers/redux";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,7 +25,10 @@ export default function RootLayout({
     <html lang="en" data-scroll-behavior="smooth">
       <body className={`${geistSans.variable} antialiased`}>
         <ErrorBoundary>
-          <Redux>{children}</Redux>
+          <Redux>
+            {children}
+            <Toaster position="top-right" />
+          </Redux>
         </ErrorBoundary>
       </body>
     </html>
