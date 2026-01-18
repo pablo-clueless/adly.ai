@@ -1,14 +1,19 @@
 export const normalize = (path: string): string => {
   if (!path) return "";
-  if (path.length <= 3) return path;
+  const qIndex = path.indexOf("?");
+  const hIndex = path.indexOf("#");
+  const end =
+    qIndex === -1 ? (hIndex === -1 ? path.length : hIndex) : hIndex === -1 ? qIndex : Math.min(qIndex, hIndex);
+  const cleanPath = path.slice(0, end);
+  if (cleanPath.length <= 3) return cleanPath;
 
   let firstPart = "";
   let secondPart = "";
   let partCount = 0;
-  const start = path.startsWith("/") ? 1 : 0;
+  const start = cleanPath.startsWith("/") ? 1 : 0;
 
-  for (let i = start; i < path.length; i++) {
-    if (path[i] === "/") {
+  for (let i = start; i < cleanPath.length; i++) {
+    if (cleanPath[i] === "/") {
       if (partCount === 0 && firstPart) {
         partCount++;
         continue;
@@ -20,9 +25,9 @@ export const normalize = (path: string): string => {
     }
 
     if (partCount === 0) {
-      firstPart += path[i];
+      firstPart += cleanPath[i];
     } else if (partCount === 1) {
-      secondPart += path[i];
+      secondPart += cleanPath[i];
     }
   }
 
@@ -31,63 +36,7 @@ export const normalize = (path: string): string => {
   return `/${firstPart}/${secondPart}`;
 };
 
-export const capitalize = (str?: string): string => {
-  if (!str?.length) return "";
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-};
-
-export const capitalizeWords = (str?: string) => {
-  if (!str?.length) return "";
-  return str
-    .split(" ")
-    .map((word) => capitalize(word))
-    .join(" ");
-};
-
-export const mask = (value?: string) => {
-  if (!value) return "";
-  return value.replace(/./g, "*");
-};
-
-export const fromKebabCase = (str: string) => {
-  return str.replace(/-/g, " ");
-};
-
-export const fromPascalCase = (str: string) => {
-  return str.replace(/([a-z])([A-Z])/g, "$1 $2");
-};
-
-export const fromCamelCase = (str: string) => {
-  return str.replace(/([a-z])([A-Z])/g, "$1 $2").toLowerCase();
-};
-
-export const fromSnakeCase = (str: string) => {
-  return str.replace(/_/g, " ");
-};
-
-export const toKebabCase = (str: string) => {
-  return str.toLowerCase().replace(/ /g, "-");
-};
-
-export const toPascalCase = (str: string) => {
-  return str
-    .replace(/([a-z])([A-Z])/g, "$1 $2")
-    .replace(/ /g, "")
-    .replace(/^./, (str) => str.toUpperCase());
-};
-
-export const toCamelCase = (str: string) => {
-  return str
-    .replace(/([a-z])([A-Z])/g, "$1 $2")
-    .replace(/ /g, "")
-    .replace(/^./, (str) => str.toLowerCase());
-};
-
-export const toSnakeCase = (str: string) => {
-  return str.toLowerCase().replace(/ /g, "_");
-};
-
-export const formatCurrency = (amount: number, currency = "NGN") => {
+export const formatCurrency = (amount: number, currency = "USD") => {
   return new Intl.NumberFormat("en-NG", {
     currency,
     currencyDisplay: "symbol",

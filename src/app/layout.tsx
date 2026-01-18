@@ -13,7 +13,8 @@ const geistSans = Geist({
 
 export const metadata: Metadata = {
   title: "Adflow.ai - Ads management simplified",
-  description: "",
+  description:
+    "Streamline your advertising campaigns with Adflow.ai – the all-in-one platform for creating, managing, and optimizing ads across channels. Boost ROI with AI-driven insights, real-time analytics, and collaborative workflows.",
 };
 
 export default function RootLayout({

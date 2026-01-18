@@ -70,7 +70,7 @@ const OtpInput = ({ onChange, value, disabled, error, helperText, length = 4, re
         {values.map((value, index) => (
           <MemoizedInput
             autoComplete="one-time-code"
-            className="focus:border-primary-500 flex size-14 items-center justify-center rounded-md border bg-white px-3 py-2 text-center text-lg font-medium text-gray-300 uppercase outline-none select-none read-only:border-gray-300 focus:border-2 disabled:border-gray-300"
+            className="focus:border-primary-500 text-primary-500 flex size-14 items-center justify-center rounded-md border bg-white px-3 py-2 text-center text-lg font-medium uppercase outline-none select-none read-only:border-gray-300 focus:border-2 disabled:border-gray-300"
             disabled={disabled}
             key={index}
             maxLength={length}

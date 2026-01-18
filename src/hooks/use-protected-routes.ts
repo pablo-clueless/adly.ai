@@ -30,10 +30,18 @@ export const useProtectedRoutes = ({
     }
   }, []);
 
-  const userPermissionNames = new Set(user?.permissions.map((permission) => permission));
-  const hasPermissionAccess = permissions.length === 0 || permissions.some((p) => userPermissionNames.has(p));
-  const hasRoleAccess = user?.role?.length && allowedRoles.includes(user.role);
-  const hasAccess = Boolean(hasRoleAccess || hasPermissionAccess);
+  const hasAccess = React.useMemo(() => {
+    if (!user) return false;
+
+    const hasRoleAccess = user.role && allowedRoles.includes(user.role);
+
+    if (permissions.length === 0) {
+      return Boolean(hasRoleAccess);
+    }
+    const permissionSet = new Set(user.permissions);
+    const hasPermissionAccess = permissions.some((p) => permissionSet.has(p));
+    return Boolean(hasRoleAccess && hasPermissionAccess);
+  }, [user, allowedRoles, permissions]);
 
   const checkAccess = React.useCallback(() => {
     if (!user) {
@@ -41,11 +49,13 @@ export const useProtectedRoutes = ({
       router.replace(redirectTo || "/signin");
       return false;
     }
+
     if (!hasAccess) {
       showErrorToast("Access Denied", "You don't have permission to access this page", "access-denied");
       router.back();
       return false;
     }
+
     return true;
   }, [user, hasAccess, redirectTo, router, showErrorToast]);
 

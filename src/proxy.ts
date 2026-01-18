@@ -5,9 +5,9 @@ import { NextResponse } from "next/server";
 export const config = {
   matcher: [
     "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/(admin)/:path*",
     "/(auth)/:path*",
-    "/admin/:path*",
-    "/dashboard/:path*",
+    "/(dashboard)/:path*",
   ],
   name: "auth-proxy",
 };
