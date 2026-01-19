@@ -110,6 +110,7 @@ export const DASHBOARD_ROUTES: RouteProps[] = [
 ];
 
 export const FOOTER_ROUTES = [
+  { label: "Contact", href: "/contact" },
   { label: "Help Center", href: "/help-center" },
   { label: "Pricing", href: "/pricing" },
   { label: "Privacy Policy", href: "/privacy-policy" },

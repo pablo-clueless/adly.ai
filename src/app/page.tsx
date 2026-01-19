@@ -6,14 +6,15 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { BENEFITS, FEATURES, FREQUENTLY_ASKED_QUESTIONS, HOW_IT_WORKS } from "@/constants";
 import { Footer, Navbar, TagHeader } from "@/components/shared";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const Page = () => {
   return (
     <>
       <Navbar />
       <div className="w-screen">
-        <section className="container mx-auto h-screen max-w-6xl py-20 sm:py-40">
-          <div className="grid h-full w-full place-items-center">
+        <section className="container mx-auto h-screen max-w-6xl pt-40">
+          <div className="flex h-full w-full flex-col items-center justify-between">
             <div className="flex flex-col items-center gap-y-10 px-4 sm:gap-y-20 sm:px-0">
               <div className="flex flex-col items-center gap-10 sm:flex-row sm:items-end">
                 <p className="text-primary-500 text-5xl font-semibold sm:text-9xl">Adflow.ai</p>
@@ -22,8 +23,9 @@ const Page = () => {
                   delivers real-time insights so your team can scale ROAS without scaling headcount.
                 </p>
               </div>
-              <Button size="xl">Start your free trial</Button>
+              <Button size="lg">Start your free trial</Button>
             </div>
+            <div className="h-[400px] w-full rounded-t-xl border border-b-0"></div>
           </div>
         </section>
         <section className="container mx-auto max-w-6xl space-y-6 px-4 py-10 sm:px-0 sm:py-20">
@@ -54,13 +56,26 @@ const Page = () => {
                 Maximize efficiency and ROI with intelligent automation
               </p>
             </div>
-            <div className="grid w-full grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-20">
-              {BENEFITS.map((benefit, index) => (
-                <div className="space-y-4" key={index}>
-                  <p className="text-primary-500 font-medium sm:text-lg">{benefit.title}</p>
-                  <p className="text-xs text-gray-600 sm:text-sm">{benefit.description}</p>
+            <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-10">
+              <div className="w-full">
+                <div className="relative aspect-4/5 w-full">
+                  <Image alt="automation" className="" fill sizes="100%" src="/assets/images/automation.png" />
                 </div>
-              ))}
+              </div>
+              <div className="grid grid-cols-1 gap-5 sm:gap-10">
+                {BENEFITS.map((benefit, index) => (
+                  <div className="space-y-1" key={index}>
+                    <div className="flex items-center gap-x-2">
+                      <div className="bg-primary-100/25 grid size-6 place-items-center rounded">
+                        <benefit.icon className="text-primary-500 size-4" />
+                      </div>
+
+                      <p className="text-primary-500 text-sm font-medium sm:text-base">{benefit.title}</p>
+                    </div>
+                    <p className="text-xs text-gray-600 sm:text-sm">{benefit.description}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>

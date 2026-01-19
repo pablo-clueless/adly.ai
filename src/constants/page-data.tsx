@@ -3,12 +3,15 @@ import {
   RiAiGenerate2Line,
   RiArchiveStackFill,
   RiBubbleChartFill,
+  RiDiscountPercentLine,
   RiGoogleFill,
   RiLineChartLine,
   RiLinksLine,
   RiMagicFill,
+  RiNumbersLine,
   RiSeoFill,
   RiTargetLine,
+  RiTimeLine,
 } from "@remixicon/react";
 
 export const FEATURES = [
@@ -47,21 +50,25 @@ export const FEATURES = [
 export const BENEFITS = [
   {
     title: "Save Time & Resources",
+    icon: RiTimeLine,
     description:
       "Automate repetitive tasks and reduce manual workload with AI-powered campaign management. Eliminate hours of daily manual bid adjustments, keyword research, and performance reporting. Our intelligent automation handles everything from budget allocation to creative testing, freeing your team to focus on strategic initiatives while cutting operational costs by up to 70%.",
   },
   {
     title: "Increase ROAS",
+    icon: RiDiscountPercentLine,
     description:
       "Optimize ad spend across channels with real-time bidding and performance insights. Our AI continuously analyzes thousands of data points to identify high-value audiences, optimal bidding strategies, and winning creative combinations. Expect to see 25-40% improvement in return on ad spend within the first month as our system eliminates waste and scales what works.",
   },
   {
     title: "Scale Effortlessly",
+    icon: RiLineChartLine,
     description:
       "Grow your campaigns without increasing headcount or complexity. Launch campaigns across multiple platforms simultaneously, test hundreds of creative variations automatically, and expand into new markets with confidence. Our platform handles the complexity of scaling while maintaining performance, allowing you to grow from $10K to $1M in monthly ad spend without adding a single team member.",
   },
   {
     title: "Data-Driven Decisions",
+    icon: RiNumbersLine,
     description:
       "Access comprehensive analytics and market intelligence to guide strategy. Make informed decisions with real-time dashboards, competitor benchmarking, predictive analytics, and AI-generated recommendations. Understand not just what happened, but why it happened and what's likely to happen next, turning raw data into actionable insights that drive continuous improvement.",
   },

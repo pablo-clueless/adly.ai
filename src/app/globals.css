@@ -10,16 +10,16 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --color-primary-50: #dc8f86;
-  --color-primary-100: #d06a5e;
-  --color-primary-200: #ca584a;
-  --color-primary-300: #b03e31;
-  --color-primary-400: #9d372b;
-  --color-primary-500: #893026;
-  --color-primary-600: #762920;
-  --color-primary-700: #62231b;
-  --color-primary-800: #3b1510;
-  --color-primary-900: #270e0b;
+  --color-primary-50: #99d5f8;
+  --color-primary-100: #66c0f5;
+  --color-primary-200: #33abf1;
+  --color-primary-300: #33abf1;
+  --color-primary-400: #0096ee;
+  --color-primary-500: #0069a7;
+  --color-primary-600: #004b77;
+  --color-primary-700: #002d47;
+  --color-primary-800: #001e30;
+  --color-primary-900: #000f18;
 
   --radius: 8px;
 }
@@ -28,34 +28,35 @@
   --color-background: #fff;
   --color-foreground: #000;
 
-  --color-primary-50: #dc8f86;
-  --color-primary-100: #d06a5e;
-  --color-primary-200: #ca584a;
-  --color-primary-300: #b03e31;
-  --color-primary-400: #9d372b;
-  --color-primary-500: #893026;
-  --color-primary-600: #762920;
-  --color-primary-700: #62231b;
-  --color-primary-800: #3b1510;
-  --color-primary-900: #270e0b;
+  --color-primary-50: #99d5f8;
+  --color-primary-100: #66c0f5;
+  --color-primary-200: #33abf1;
+  --color-primary-300: #33abf1;
+  --color-primary-400: #0096ee;
+  --color-primary-500: #0069a7;
+  --color-primary-600: #004b77;
+  --color-primary-700: #002d47;
+  --color-primary-800: #001e30;
+  --color-primary-900: #000f18;
 
   --background-image-image-1: url("/assets/images/background-1.jpg");
+  --background-image-image-2: url("/assets/images/background-2.png");
 }
 
 .dark {
   --color-background: #000;
   --color-foreground: #fff;
 
-  --color-primary-50: #fff;
-  --color-primary-100: #f2f2f2;
-  --color-primary-200: #e6e6e6;
-  --color-primary-300: #d9d9d9;
-  --color-primary-400: #ccc;
-  --color-primary-500: #bfbfbf;
-  --color-primary-600: #b3b3b3;
-  --color-primary-700: #a6a6a6;
-  --color-primary-800: #999;
-  --color-primary-900: #000;
+  --color-primary-50: #99d5f8;
+  --color-primary-100: #66c0f5;
+  --color-primary-200: #33abf1;
+  --color-primary-300: #33abf1;
+  --color-primary-400: #0096ee;
+  --color-primary-500: #0069a7;
+  --color-primary-600: #004b77;
+  --color-primary-700: #002d47;
+  --color-primary-800: #001e30;
+  --color-primary-900: #000f18;
 }
 
 @layer base {
@@ -66,6 +67,7 @@
   }
 
   * {
+    border-color: var(--color-gray-300);
     box-sizing: border-box;
     margin: 0;
     padding: 0;
