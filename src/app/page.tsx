@@ -1,12 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BENEFITS, FEATURES, FREQUENTLY_ASKED_QUESTIONS, HOW_IT_WORKS } from "@/constants";
 import { Footer, Navbar, TagHeader } from "@/components/shared";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 
 const Page = () => {
   return (
@@ -25,7 +25,15 @@ const Page = () => {
               </div>
               <Button size="lg">Start your free trial</Button>
             </div>
-            <div className="h-[400px] w-full rounded-t-xl border border-b-0"></div>
+            <div className="relative h-[400px] w-full rounded-t-xl border border-b-0">
+              <Image
+                alt="ad (abstract)"
+                className="rounded-t-xl object-cover"
+                fill
+                sizes="100%"
+                src="/assets/images/ad.jpg"
+              />
+            </div>
           </div>
         </section>
         <section className="container mx-auto max-w-6xl space-y-6 px-4 py-10 sm:px-0 sm:py-20">
