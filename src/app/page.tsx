@@ -25,7 +25,6 @@ const Page = () => {
     <>
       <Navbar />
       <div className="w-screen">
-        {/* Hero Section */}
         <section className="container mx-auto h-screen max-w-6xl pt-40">
           <motion.div
             ref={heroRef}
@@ -57,15 +56,17 @@ const Page = () => {
                   delivers real-time insights so your team can scale ROAS without scaling headcount.
                 </motion.p>
               </div>
-              <motion.div
+              <motion.a
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={heroInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.4, delay: 0.5 }}
                 whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
               >
-                <Button size="lg">Start your free trial</Button>
-              </motion.div>
+                <Button asChild size="lg">
+                  <Link href="/signup">Start your free trial</Link>
+                </Button>
+              </motion.a>
             </motion.div>
             <motion.div
               className="relative h-[400px] w-full rounded-t-xl border border-b-0"
