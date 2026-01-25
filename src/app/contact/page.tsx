@@ -3,6 +3,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
+import {
+  RiFacebookFill,
+  RiGithubFill,
+  RiInstagramFill,
+  RiLinkedinFill,
+  RiMailLine,
+  RiMapPin3Line,
+  RiPhoneLine,
+  RiTwitterFill,
+  RiYoutubeFill,
+} from "@remixicon/react";
 
 import { Navbar, TagHeader } from "@/components/shared";
 import { Textarea } from "@/components/ui/textarea";
@@ -23,6 +34,15 @@ const schema = z.object({
 
 type FormProps = z.infer<typeof schema>;
 
+const SOCIAL_MEDIA = [
+  { icon: RiGithubFill, name: "Github", url: "https://github.com/" },
+  { icon: RiTwitterFill, name: "Twitter", url: "https://x.com/" },
+  { icon: RiLinkedinFill, name: "LinkedIn", url: "https://linkedin.com/com/" },
+  { icon: RiInstagramFill, name: "Instagram", url: "https://instagram.com/" },
+  { icon: RiFacebookFill, name: "Facebook", url: "https://facebook.com/" },
+  { icon: RiYoutubeFill, name: "YouTube", url: "https://youtube.com/" },
+];
+
 const Page = () => {
   const {
     control,
@@ -39,10 +59,10 @@ const Page = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-image-2 w-screen bg-bottom-left bg-no-repeat sm:h-screen">
+      <div className="w-screen sm:h-screen">
         <section className="container mx-auto h-full max-w-6xl px-4 py-20 sm:px-0 sm:py-40">
-          <div className="grid h-full w-full grid-cols-1 sm:grid-cols-2">
-            <div className="h-full space-y-6">
+          <div className="grid h-full w-full grid-cols-1 gap-10 sm:grid-cols-2">
+            <div className="flex h-full flex-col justify-between">
               <div className="space-y-1">
                 <TagHeader title="Contact Us" />
                 <p className="text-3xl sm:text-6xl">Let&apos;s Meet</p>
@@ -50,8 +70,39 @@ const Page = () => {
                   Tell us about your project and we&apos;ll get back to you within 24 hours
                 </p>
               </div>
+              <div className="space-y-4">
+                <div className="flex items-center gap-x-2">
+                  <RiMailLine className="text-primary-500 size-4" />
+                  <a className="text-sm hover:underline sm:text-base" href="mailto:hello@adflow.ai">
+                    hello@adflow.ai
+                  </a>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <RiPhoneLine className="text-primary-500 size-4" />
+                  <a className="text-sm hover:underline sm:text-base" href="tel:+2349023324444">
+                    +234 902 332 4444
+                  </a>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <RiMapPin3Line className="text-primary-500 size-4" />
+                  <p className="text-sm sm:text-base">Lagos, Nigeria</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-6 gap-2">
+                {SOCIAL_MEDIA.map((item, index) => (
+                  <a
+                    className="hover:text-primary-400 group relative grid place-items-center text-gray-600"
+                    href={item.url}
+                    key={index}
+                    target="_blank"
+                  >
+                    <item.icon className="absolute top-1/2 left-1/2 hidden size-8 -translate-x-1/2 -translate-y-1/2 opacity-25 transition-all duration-500 group-hover:block sm:size-12" />
+                    <item.icon className="size-4 sm:size-6" />
+                  </a>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-col items-center gap-y-5 rounded-lg border bg-white sm:gap-y-10 sm:px-20 sm:py-10">
+            <div className="flex flex-col items-center gap-y-5 sm:gap-y-10 sm:px-20 sm:py-10">
               <p className="text-xl font-medium sm:text-2xl">Fill a form</p>
               <form className="flex w-full flex-col items-center gap-y-4" onSubmit={handleSubmit(onSubmit)}>
                 <Controller

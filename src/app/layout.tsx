@@ -1,5 +1,5 @@
 // import { GoogleOAuthProvider } from "@react-oauth/google"
-import { Geist } from "next/font/google";
+import { Hanken_Grotesk } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -7,8 +7,8 @@ import { ErrorBoundary } from "@/components/providers/error-boundary";
 import { Redux } from "@/components/providers/redux";
 import { Toaster } from "@/components/ui/sonner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const hanken_grotesk = Hanken_Grotesk({
+  variable: "--font-hanken-grotesk",
   subsets: ["latin"],
 });
 
@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
-      <body className={`${geistSans.variable} antialiased`}>
+      <body className={`${hanken_grotesk.variable} antialiased`}>
         <ErrorBoundary>
           <Redux>
             {children}
