@@ -1,58 +1,68 @@
-import { useFormContext } from "react-hook-form";
 import * as React from "react";
+
 import { cn } from "@/lib/utils";
 
-interface TextareaProps extends React.ComponentProps<"textarea"> {
-  name: string;
-}
-
-const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ className, name, ...props }, ref) => {
-  const formContext = useFormContext();
-  const fieldState = formContext?.getFieldState(name);
-  const hasError = !!fieldState?.error;
-
-  return (
-    <textarea
-      ref={ref}
-      data-slot="textarea"
-      aria-invalid={hasError}
-      className={cn(
-        "border-input placeholder:text-muted-foreground focus-visible:border-primary-500 dark:bg-input/30 flex field-sizing-content min-h-16 w-full resize-none rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-red-500 md:text-sm",
-        className,
-      )}
-      {...props}
-    />
-  );
-});
-
-Textarea.displayName = "Textarea";
-
-interface FormTextareaProps extends Omit<TextareaProps, "name"> {
-  name: string;
+interface Props extends React.ComponentProps<"textarea"> {
+  error?: { touched?: boolean; message?: string };
+  helperText?: string;
   label?: string;
-  description?: string;
+  inputClassName?: string;
+  isLoading?: boolean;
+  labelClassName?: string;
+  wrapperClassName?: string;
 }
 
-const FormTextarea = ({ name, label, description, className, ...props }: FormTextareaProps) => {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
-  const error = errors[name];
-  const errorMessage = error?.message as string | undefined;
-
+function Textarea({
+  className,
+  error,
+  helperText,
+  id,
+  inputClassName,
+  label,
+  labelClassName,
+  name,
+  required,
+  wrapperClassName,
+  ...props
+}: Props) {
   return (
-    <div className="space-y-2">
+    <div className={cn("w-full space-y-0.5", wrapperClassName)}>
       {label && (
-        <label htmlFor={name} className="text-sm font-medium text-gray-900">
+        <label
+          className={cn(
+            "text-sm font-medium text-gray-700",
+            labelClassName,
+            required && "after:ml-1 after:text-red-500 after:content-['*']",
+          )}
+          htmlFor={name ?? id}
+        >
           {label}
         </label>
       )}
-      <Textarea id={name} {...register(name)} className={className} {...props} />
-      {description && !error && <p className="text-xs text-gray-500">{description}</p>}
-      {errorMessage && <p className="text-xs text-red-600">{errorMessage}</p>}
+      <div
+        className={cn(
+          "focus-within:border-primary-600 flex field-sizing-content min-h-20 min-w-0 rounded-md border px-3 py-1 shadow-xs transition-[color,box-shadow,border] duration-300 outline-none",
+          inputClassName,
+        )}
+      >
+        <textarea
+          data-slot="textarea"
+          className={cn(
+            "h-full w-full resize-none bg-transparent text-sm transition-[color,box-shadow] outline-none placeholder:text-gray-400 focus:border-0 focus:outline-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+            className,
+          )}
+          id={id}
+          name={name}
+          {...props}
+        />
+      </div>
+      {error?.touched && error?.message ? (
+        <span className="text-xs text-red-500">{error.message}</span>
+      ) : helperText ? (
+        <span className="text-xs text-gray-500">{helperText}</span>
+      ) : null}
     </div>
   );
-};
+}
 
-export { Textarea, FormTextarea };
+export { Textarea };

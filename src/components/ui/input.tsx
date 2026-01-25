@@ -1,61 +1,99 @@
+"use client";
+
+import { CheckIcon, CircleXIcon, EyeIcon, EyeOffIcon, LoaderIcon, SearchIcon } from "lucide-react";
 import * as React from "react";
-import { useFormContext } from "react-hook-form";
+
 import { cn } from "@/lib/utils";
 
-interface InputProps extends React.ComponentProps<"input"> {
-  name?: string;
-}
-
-const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type, name, ...props }, ref) => {
-  const formContext = useFormContext?.();
-  const fieldState = name && formContext ? formContext.getFieldState(name) : null;
-  const hasError = !!fieldState?.error;
-
-  return (
-    <input
-      ref={ref}
-      type={type}
-      data-slot="input"
-      aria-invalid={hasError}
-      className={cn(
-        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-        "focus-visible:border-primary-500",
-        "aria-invalid:border-red-500",
-        className,
-      )}
-      {...props}
-    />
-  );
-});
-
-Input.displayName = "Input";
-
-interface FormInputProps extends Omit<React.ComponentProps<"input">, "name"> {
-  name: string;
+interface Props extends React.ComponentProps<"input"> {
+  error?: { touched?: boolean; message?: string };
+  helperText?: string;
   label?: string;
-  description?: string;
+  inputClassName?: string;
+  isLoading?: boolean;
+  isValid?: boolean | null;
+  labelClassName?: string;
+  wrapperClassName?: string;
 }
 
-const FormInput = ({ name, label, description, className, ...props }: FormInputProps) => {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
-  const error = errors[name];
-  const errorMessage = error?.message as string | undefined;
+function Input({
+  className,
+  error,
+  helperText,
+  id,
+  inputClassName,
+  isLoading,
+  isValid,
+  label,
+  labelClassName,
+  name,
+  required,
+  wrapperClassName,
+  type,
+  ...props
+}: Props) {
+  const [showPassword, setShowPassword] = React.useState(false);
 
   return (
-    <div className="space-y-2">
+    <div className={cn("w-full space-y-0.5", wrapperClassName)}>
       {label && (
-        <label htmlFor={name} className="text-sm font-medium text-gray-900">
+        <label
+          className={cn(
+            "text-sm font-medium text-gray-700",
+            labelClassName,
+            required && "after:ml-1 after:text-red-500 after:content-['*']",
+          )}
+          htmlFor={name ?? id}
+        >
           {label}
         </label>
       )}
-      <Input id={name} {...register(name)} className={className} {...props} />
-      {description && !error && <p className="text-xs text-gray-500">{description}</p>}
-      {errorMessage && <p className="text-xs text-red-600">{errorMessage}</p>}
+      <div
+        className={cn(
+          "focus-within:border-primary-600 group flex h-9 min-w-0 items-center gap-x-2 rounded-md border px-3 py-1 shadow-xs transition-[color,box-shadow,border] duration-300 outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium",
+          inputClassName,
+        )}
+      >
+        {type === "search" && (
+          <SearchIcon className="group-hover:text-primary-400 size-4 text-gray-700 transition-colors duration-500" />
+        )}
+        <input
+          type={showPassword ? "text" : type}
+          name={name}
+          id={id}
+          data-slot="input"
+          className={cn(
+            "file:text-foreground h-full w-full border-0 bg-transparent text-sm outline-0 transition-all duration-300 placeholder:text-gray-400 focus:border-0 focus:outline-0 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+            "aria-invalid:border-red-500",
+            className,
+          )}
+          onWheel={(e) => e.currentTarget.blur()}
+          {...props}
+        />
+        {isLoading ? (
+          <LoaderIcon className="size-4 animate-spin text-gray-700" />
+        ) : isValid === true ? (
+          <CheckIcon className="size-4 text-green-400" />
+        ) : isValid === false ? (
+          <CircleXIcon className="size-4 text-red-500" />
+        ) : null}
+        {type === "password" && (
+          <button onClick={() => setShowPassword((prev) => !prev)} type="button">
+            {showPassword ? (
+              <EyeOffIcon className="size-4 text-gray-700" />
+            ) : (
+              <EyeIcon className="size-4 text-gray-700" />
+            )}
+          </button>
+        )}
+      </div>
+      {error?.touched && error?.message ? (
+        <span className="text-xs text-red-500">{error.message}</span>
+      ) : helperText ? (
+        <span className="text-xs text-gray-500">{helperText}</span>
+      ) : null}
     </div>
   );
-};
+}
 
-export { Input, FormInput };
+export { Input };
