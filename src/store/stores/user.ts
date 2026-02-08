@@ -53,14 +53,9 @@ class UserManager {
     };
   }
 
-  static getStoredUser(): UserProps | null {
-    if (typeof window === "undefined") return null;
-    try {
-      const user = Cookies.get(COOKIE_NAME);
-      return user ? JSON.parse(user) : null;
-    } catch {
-      return null;
-    }
+  static hasValidToken(): boolean {
+    if (typeof window === "undefined") return false;
+    return !!Cookies.get(COOKIE_NAME);
   }
 }
 
@@ -69,17 +64,22 @@ const useUserStore = createPersistMiddleware<UserStore>(STORAGE_KEY, (set, get) 
   isHydrated: false,
   hydrate: () => {
     if (typeof window !== "undefined" && !get().isHydrated) {
-      const user = UserManager.getStoredUser();
-      set({ user, isHydrated: true });
+      // If token cookie is missing but user exists in store, clear the user (session expired)
+      if (!UserManager.hasValidToken() && get().user) {
+        set({ user: null, isHydrated: true });
+      } else {
+        set({ isHydrated: true });
+      }
     }
   },
   signin: (payload, options) => {
     try {
       const cookieOptions = UserManager.getCookieOptions(options?.remember, options?.expiresIn);
       Cookies.set(COOKIE_NAME, payload.accessToken, cookieOptions);
-      set({ user: payload.user });
+      set({ user: payload.user, isHydrated: true });
       if (options?.redirectUrl) {
-        UserManager.redirect(options.redirectUrl);
+        // Small delay to ensure zustand persist has saved to localStorage
+        setTimeout(() => UserManager.redirect(options.redirectUrl), 100);
       }
     } catch (error) {
       console.error("Sign in failed:", error);

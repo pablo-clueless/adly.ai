@@ -1,6 +1,7 @@
 export * from "./bread-crumb";
 export * from "./calendar";
 export * from "./data-table";
+export * from "./date-picker";
 export * from "./footer";
 export * from "./footer";
 export * from "./header";
@@ -8,6 +9,7 @@ export * from "./loader";
 export * from "./logo";
 export * from "./navbar";
 export * from "./otp-input";
+export * from "./pagination";
 export * from "./scroll-area";
 export * from "./sidebar";
 export * from "./stepper";

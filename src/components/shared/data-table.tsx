@@ -62,7 +62,11 @@ export const DataTable = <TData, TValue>({ columns, data }: Props<TData, TValue>
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+              <TableRow
+                key={row.id}
+                data-state={row.getIsSelected() && "selected"}
+                className="data-[state=selected]:bg-primary-50/25 data-[state=selected]:text-secondary-200 h-14"
+              >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id} className="whitespace-nowrap">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -1,11 +1,18 @@
 import type { Maybe } from "./app";
 
+export type AdStatus = "draft" | "published" | "scheduled" | "expiring" | "expired";
+
 export interface AdProps {
   assets: string[];
+  comments: number;
   created_at: string;
   description: string;
   id: string;
-  status: "active" | "paused" | "completed";
+  published_at: string;
+  reach: number;
+  reactions: number;
+  shares: number;
+  status: AdStatus;
   title: string;
   updated_at: Maybe<string>;
   budget_id?: string;
