@@ -68,7 +68,7 @@ const Dots = ({ size = "md", color = "primary" }: Pick<LoaderProps, "size" | "co
   if (shouldReduceMotion) {
     return (
       <div className="flex items-center gap-1">
-        {[...Array(5)].map((i) => (
+        {[...Array(4)].map((i) => (
           <div key={i} className={cn("rounded-full", dot, colorMap[color].split(" ")[1])} />
         ))}
       </div>
@@ -82,7 +82,7 @@ const Dots = ({ size = "md", color = "primary" }: Pick<LoaderProps, "size" | "co
       initial="initial"
       animate="animate"
     >
-      {[0, 1, 2].map((i) => (
+      {[...Array(4)].map((i) => (
         <motion.div key={i} className={cn("rounded-full", dot, colorMap[color].split(" ")[1])} variants={dotVariants} />
       ))}
     </motion.div>

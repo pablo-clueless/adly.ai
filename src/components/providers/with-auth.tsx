@@ -3,9 +3,9 @@
 import React from "react";
 
 import { useProtectedRoutes, useRbacRedirect } from "@/hooks";
-import type { RoleType } from "@/types";
 import { useUserStore } from "@/store/stores";
-import { Loader } from "../shared";
+import type { RoleType } from "@/types";
+import { PageLoader } from "../shared";
 
 interface WithAuthProps {
   allowedRoles: RoleType[];
@@ -21,7 +21,7 @@ export const WithAuth = React.memo(
     allowedRoles,
     children,
     enableRbacRedirect = false,
-    fallback = <Loader />,
+    fallback = <PageLoader message="Please wait..." variant="dots" />,
     permissions,
     redirectTo,
   }: WithAuthProps) => {
