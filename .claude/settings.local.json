@@ -1,5 +1,5 @@
 {
   "permissions": {
-    "allow": ["Bash(npx tsc:*)", "Bash(timeout 15 pnpm dev:*)"]
+    "allow": ["Bash(npx tsc:*)", "Bash(timeout 15 pnpm dev:*)", "mcp__ide__getDiagnostics", "Bash(ls:*)"]
   }
 }

@@ -24,7 +24,6 @@ const colorMap = {
   gray: "border-gray-400 bg-gray-400",
 };
 
-// Spinner variant
 const Spinner = ({ size = "md", color = "primary" }: Pick<LoaderProps, "size" | "color">) => {
   const shouldReduceMotion = useReducedMotion();
   const { container } = sizeMap[size];
@@ -42,7 +41,6 @@ const Spinner = ({ size = "md", color = "primary" }: Pick<LoaderProps, "size" | 
   );
 };
 
-// Dots variant
 const dotsContainerVariants: Variants = {
   animate: {
     transition: {
@@ -91,7 +89,6 @@ const Dots = ({ size = "md", color = "primary" }: Pick<LoaderProps, "size" | "co
   );
 };
 
-// Pulse variant
 const pulseVariants: Variants = {
   initial: { scale: 1, opacity: 1 },
   animate: {
@@ -133,7 +130,6 @@ export const Loader = ({ className, variant = "spinner", size = "md", color = "p
   );
 };
 
-// Full page loader
 interface PageLoaderProps {
   className?: string;
   variant?: "spinner" | "dots" | "pulse";
@@ -168,7 +164,6 @@ export const PageLoader = ({ className, variant = "spinner", message }: PageLoad
   );
 };
 
-// Inline loader for buttons
 interface ButtonLoaderProps {
   className?: string;
   color?: "primary" | "white" | "gray";

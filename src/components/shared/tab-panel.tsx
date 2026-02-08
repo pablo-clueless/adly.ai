@@ -22,7 +22,7 @@ const TabPanel = React.forwardRef<HTMLDivElement, Props>(
     }
 
     const isSelected = selected === value;
-    const content = <div className={cn("h-full w-full", innerClassName)}>{children}</div>;
+    const content = <div className={cn("h-fit w-full", innerClassName)}>{children}</div>;
 
     return (
       <div
@@ -33,7 +33,7 @@ const TabPanel = React.forwardRef<HTMLDivElement, Props>(
         aria-labelledby={`tab-${value}`}
         aria-hidden={!isSelected}
         tabIndex={isSelected ? 0 : -1}
-        className={cn("h-full w-full", className)}
+        className={cn("h-fit w-full", className)}
       >
         {animated ? (
           <AnimatePresence mode="wait">

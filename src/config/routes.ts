@@ -14,6 +14,8 @@ import {
   RiMoneyDollarCircleLine,
   RiUserSettingsLine,
   RiStackLine,
+  RiUser3Line,
+  RiNotification4Line,
 } from "@remixicon/react";
 
 import type { RouteProps } from "@/types";
@@ -58,6 +60,16 @@ export const ADMIN_ROUTES: RouteProps[] = [
     href: "/admin/alerts",
     icon: RiAlarmWarningLine,
     label: "System Alerts",
+  },
+  {
+    href: "/admin/profile",
+    icon: RiUser3Line,
+    label: "Profile",
+  },
+  {
+    href: "/admin/notifications",
+    icon: RiNotification4Line,
+    label: "Notifications",
   },
   {
     href: "/admin/settings",

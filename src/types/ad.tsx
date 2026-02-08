@@ -1,6 +1,6 @@
 import type { Maybe } from "./app";
 
-export type AdStatus = "draft" | "published" | "scheduled" | "expiring" | "expired";
+export type AdStatus = "all" | "draft" | "published" | "scheduled" | "expiring" | "expired";
 
 export interface AdProps {
   assets: string[];

@@ -42,7 +42,7 @@ export const Pagination = ({
       disabled={current === index}
       className={cn(
         "grid size-7 place-items-center rounded-md text-xs font-medium",
-        current === index ? "bg-primary-600 text-secondary-200" : "border bg-white",
+        current === index ? "bg-primary-500 text-white" : "border-primary-500 text-primary-500 border bg-white",
         numberButtonClassName,
       )}
     >
@@ -104,7 +104,7 @@ export const Pagination = ({
     <div className={cn("flex w-full items-center justify-center gap-x-4", className)}>
       <button
         className={cn(
-          "bg-primary-500 text-secondary-200 h-7 rounded-md px-3 text-xs font-medium disabled:cursor-not-allowed disabled:border disabled:bg-white disabled:text-neutral-800",
+          "bg-primary-500 h-7 rounded-md px-3 text-xs font-medium text-white disabled:cursor-not-allowed disabled:border disabled:bg-white disabled:text-neutral-800",
           buttonClassName,
         )}
         disabled={totalPages === 0 || current === 0}
@@ -116,7 +116,7 @@ export const Pagination = ({
       <div className="flex items-center gap-x-3">{renderButtons()}</div>
       <button
         className={cn(
-          "bg-primary-500 text-secondary-200 h-7 rounded-md px-3 text-xs font-medium disabled:cursor-not-allowed disabled:border disabled:bg-white disabled:text-neutral-800",
+          "bg-primary-500 h-7 rounded-md px-3 text-xs font-medium text-white disabled:cursor-not-allowed disabled:border disabled:bg-white disabled:text-neutral-800",
           buttonClassName,
         )}
         disabled={totalPages === 0 || current === totalPages - 1}

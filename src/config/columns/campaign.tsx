@@ -42,15 +42,9 @@ export const columns: ColumnDef<CampaignProps>[] = [
     ),
   },
   {
-    accessorKey: "title",
-    header: ({ column }) => (
-      <div className="flex items-center gap-x-4">
-        <button onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          <RiArrowUpDownLine className="size-4" />
-        </button>
-        Campaign
-      </div>
-    ),
+    accessorKey: "name",
+    header: "Campaign",
+    cell: ({ row }) => <span className="max-w-70 truncate capitalize">{row.original.name}</span>,
   },
   {
     accessorKey: "budget",

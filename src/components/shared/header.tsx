@@ -37,10 +37,16 @@ export const Header = () => {
           </Popover>
           <Popover>
             <PopoverTrigger asChild>
-              <Avatar className="size-8 cursor-pointer border">
-                <AvatarImage src={user?.profile.avatar_url || ""} />
-                <AvatarFallback></AvatarFallback>
-              </Avatar>
+              <div className="flex h-8 cursor-pointer items-center gap-x-3">
+                <Avatar className="size-8 cursor-pointer border">
+                  <AvatarImage src={user?.profile.avatar_url || ""} />
+                  <AvatarFallback></AvatarFallback>
+                </Avatar>
+                <div className="">
+                  <p className="text-xs">{user?.full_name}</p>
+                  <p className="text-[10px] text-gray-600">{user?.email}</p>
+                </div>
+              </div>
             </PopoverTrigger>
             <PopoverContent className="mr-4 space-y-2">
               <div className="flex items-center gap-x-2">

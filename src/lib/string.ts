@@ -52,3 +52,10 @@ export const getTitle = (pathname?: string) => {
   if (paths.length === 0) return "Dashboard";
   return paths[paths.length - 1].charAt(0).toUpperCase() + paths[paths.length - 1].slice(1);
 };
+
+export const getInitials = (fullName?: string) => {
+  if (!fullName) return "";
+  let names = fullName.split(" ");
+  if (names.length > 2) names = names.slice(0, 2);
+  return names.map((word) => word.substring(0, 1)).join("");
+};

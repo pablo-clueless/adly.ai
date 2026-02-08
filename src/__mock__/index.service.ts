@@ -16,8 +16,8 @@ export const mockApiAuth = async (payload: SignInDto): Promise<SigninResponse> =
     user: {
       id: faker.string.uuid(),
       full_name: "John Doe",
-      email: "johndoe@example.com",
-      role: "USER",
+      email: payload.email,
+      role: "ADMIN",
       permissions: [],
       auth_provider: "email",
       date_joined: new Date().toISOString(),

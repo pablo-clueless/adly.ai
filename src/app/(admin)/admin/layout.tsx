@@ -15,7 +15,7 @@ const AdminLayout = ({ children }: Props) => {
           <Sidebar type="admin" />
           <div className="h-full w-full">
             <Header />
-            <div className="h-[calc(100%-56px)] w-full overflow-hidden">{children}</div>
+            <div className="h-[calc(100%-56px)] w-full overflow-hidden p-6">{children}</div>
           </div>
         </div>
       </WithAuth>

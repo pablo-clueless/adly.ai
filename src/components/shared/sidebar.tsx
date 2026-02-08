@@ -60,24 +60,14 @@ export const Sidebar = ({ type }: Props) => {
               <Link
                 className={cn(
                   "relative flex items-center gap-x-4 rounded-md text-sm transition-colors",
-                  isActive ? "text-primary-500 font-semibold" : "hover:bg-primary-50/50 text-gray-500",
-                  isSidebarOpen ? "px-3 py-2" : "p-2.5",
+                  isActive
+                    ? "text-primary-500 bg-primary-100/50 font-semibold"
+                    : "hover:bg-primary-50/50 text-gray-500",
+                  isSidebarOpen ? "px-3 py-2" : "p-2",
                 )}
                 href={href}
                 key={index}
               >
-                {isActive && (
-                  <motion.div
-                    className="bg-primary-100/50 absolute inset-0 rounded-md"
-                    layoutId={shouldReduceMotion ? undefined : "sidebar-active-indicator"}
-                    initial={false}
-                    transition={{
-                      type: "spring",
-                      stiffness: 500,
-                      damping: 35,
-                    }}
-                  />
-                )}
                 <Icon className="relative z-10 size-5 shrink-0" />
                 <span
                   className={cn(

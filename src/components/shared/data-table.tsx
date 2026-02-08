@@ -1,8 +1,14 @@
 "use no memo";
 "use client";
 
-import type { ColumnDef, ColumnFiltersState, ColumnOrderState, SortingState } from "@tanstack/react-table";
 import { useState } from "react";
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  ColumnOrderState,
+  RowSelectionState,
+  SortingState,
+} from "@tanstack/react-table";
 import {
   flexRender,
   getCoreRowModel,
@@ -16,13 +22,33 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  onRowSelectionChange?: (selection: RowSelectionState) => void;
+  rowSelection?: RowSelectionState;
 }
 
-export const DataTable = <TData, TValue>({ columns, data }: Props<TData, TValue>) => {
+export const DataTable = <TData, TValue>({
+  columns,
+  data,
+  onRowSelectionChange,
+  rowSelection: externalRowSelection,
+}: Props<TData, TValue>) => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnOrder, setColumnOrder] = useState<ColumnOrderState>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [rowSelection, setRowSelection] = useState({});
+  const [internalRowSelection, setInternalRowSelection] = useState<RowSelectionState>({});
+
+  const rowSelection = externalRowSelection ?? internalRowSelection;
+
+  const handleRowSelectionChange = (
+    updaterOrValue: RowSelectionState | ((old: RowSelectionState) => RowSelectionState),
+  ) => {
+    const newSelection = typeof updaterOrValue === "function" ? updaterOrValue(rowSelection) : updaterOrValue;
+    if (onRowSelectionChange) {
+      onRowSelectionChange(newSelection);
+    } else {
+      setInternalRowSelection(newSelection);
+    }
+  };
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
@@ -32,7 +58,7 @@ export const DataTable = <TData, TValue>({ columns, data }: Props<TData, TValue>
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
-    onRowSelectionChange: setRowSelection,
+    onRowSelectionChange: handleRowSelectionChange,
     onSortingChange: setSorting,
     onColumnOrderChange: setColumnOrder,
     state: {

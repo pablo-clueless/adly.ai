@@ -1,5 +1,7 @@
+import { PageLoader } from "@/components/shared";
+
 const Loading = () => {
-  return <div>Loading</div>;
+  return <PageLoader message="Loading" variant="dots" />;
 };
 
 export default Loading;

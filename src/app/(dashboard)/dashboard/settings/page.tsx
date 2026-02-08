@@ -1,11 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-import { slideUpVariants, staggerContainerVariants, staggerItemVariants, useReducedMotion } from "@/lib/motion";
-import { Billing, Notification, Profile, Security, Team } from "@/components/modules/settings";
 import { useState } from "react";
-import { cn } from "@/lib";
+
+import { Billing, Notification, Profile, Security, Team } from "@/components/modules/settings";
+import { slideUpVariants, staggerContainerVariants, useReducedMotion } from "@/lib/motion";
+import { Button } from "@/components/ui/button";
 
 const tabs = [
   {
@@ -35,12 +35,16 @@ const Page = () => {
   const shouldReduceMotion = useReducedMotion();
   const tab = (section: (typeof tabs)[0]) => section.title === currentTab.title;
 
-  const pageVariants = shouldReduceMotion ? {} : slideUpVariants;
   const containerVariants = shouldReduceMotion ? {} : staggerContainerVariants;
-  const itemVariants = shouldReduceMotion ? {} : staggerItemVariants;
+  const pageVariants = shouldReduceMotion ? {} : slideUpVariants;
 
   return (
-    <motion.div className="w-full space-y-6" initial="hidden" animate="visible" variants={pageVariants}>
+    <motion.div
+      className="h-full w-full space-y-6 overflow-y-auto"
+      initial="hidden"
+      animate="visible"
+      variants={pageVariants}
+    >
       <motion.div
         className="flex w-full items-center justify-between"
         initial={{ opacity: 0, y: 20 }}
@@ -53,29 +57,30 @@ const Page = () => {
         </div>
       </motion.div>
       <motion.div
-        className="flex items-center gap-4 text-sm font-medium"
+        className="w-full space-y-2 border-b pb-2"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
       >
-        {tabs.map((section, index) => (
-          <motion.button
-            className={cn(
-              "before:bg-primary-400 relative flex h-10 flex-1 items-center justify-center before:absolute before:top-full before:left-0 before:h-px before:transition-all before:duration-500",
-              tab(section) ? "text-primary-400 before:w-full" : "text-gray-500 before:w-0",
-            )}
-            custom={index}
-            key={section.title}
-            onClick={() => setCurrentTab(section)}
-            variants={itemVariants}
-          >
-            {section.title}
-          </motion.button>
-        ))}
-      </motion.div>
-      <div className="w-full border-b py-2">
+        <motion.div
+          className="flex items-center gap-4 text-sm font-medium"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+        >
+          {tabs.map((section) => (
+            <Button
+              className="flex-1"
+              key={section.title}
+              onClick={() => setCurrentTab(section)}
+              variant={tab(section) ? "default" : "outline"}
+            >
+              {section.title}
+            </Button>
+          ))}
+        </motion.div>
         <p className="text-sm text-gray-500">{currentTab.description}</p>
-      </div>
+      </motion.div>
       <Billing selected={currentTab.title.toLowerCase()} />
       <Notification selected={currentTab.title.toLowerCase()} />
       <Profile selected={currentTab.title.toLowerCase()} />

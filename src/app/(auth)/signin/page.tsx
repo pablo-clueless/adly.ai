@@ -41,7 +41,8 @@ const Page = () => {
       mockApiAuth(values)
         .then((response) => {
           setIsLoading(false);
-          signin(response, { redirectUrl: "/dashboard", remember: true });
+          const redirectUrl = response.user.role === "ADMIN" ? "/admin" : "/dashboard";
+          signin(response, { redirectUrl, remember: true });
         })
         .catch((error) => {
           setIsLoading(false);
