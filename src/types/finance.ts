@@ -1,11 +1,13 @@
+import type { Maybe } from "./app";
+
 export interface FinanceProps {
   budget: number;
   currency: string;
-  endDate: Date;
+  end_date: Maybe<string>;
   id: string;
   name: string;
   remaining: number;
   spent: number;
-  startDate: Date;
+  start_date: string;
   status: "active" | "paused" | "completed";
 }

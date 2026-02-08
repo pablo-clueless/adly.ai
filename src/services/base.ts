@@ -1,7 +1,7 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import Cookies from "js-cookie";
 
-import { COOKIE_NAME } from "@/store/stores";
+import { COOKIE_NAME } from "@/constants/keys";
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_BASE_URI,

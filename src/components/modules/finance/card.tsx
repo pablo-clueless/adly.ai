@@ -25,7 +25,7 @@ export const Card = ({ finance }: Props) => {
     <div className="w-full rounded-lg border bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
       <div className="mb-4 flex items-start justify-between">
         <div className="flex-1">
-          <h3 className="text-lg font-semibold text-gray-900">{finance.name}</h3>
+          <h3 className="text-lg font-semibold text-gray-900 capitalize">{finance.name}</h3>
           <div className="mt-1 flex items-center gap-2">
             <span
               className={cn(
@@ -81,11 +81,13 @@ export const Card = ({ finance }: Props) => {
       <div className="mt-4 grid grid-cols-2 gap-4 border-t pt-4">
         <div>
           <p className="text-xs text-gray-500">Start Date</p>
-          <p className="text-sm font-medium text-gray-900">{format(finance.startDate, "MMM dd, yyyy")}</p>
+          <p className="text-sm font-medium text-gray-900">{format(finance.start_date, "MMM dd, yyyy")}</p>
         </div>
         <div>
           <p className="text-xs text-gray-500">End Date</p>
-          <p className="text-sm font-medium text-gray-900">{format(finance.endDate, "MMM dd, yyyy")}</p>
+          <p className="text-sm font-medium text-gray-900">
+            {finance.end_date ? format(new Date(finance.end_date), "MMM dd, yyyy") : "N/A"}
+          </p>
         </div>
       </div>
     </div>

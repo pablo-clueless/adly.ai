@@ -1,7 +1,8 @@
 import Cookies from "js-cookie";
 
+import type { Maybe, SigninResponse, UserProps } from "@/types";
+import { COOKIE_NAME, STORAGE_KEY } from "@/constants/keys";
 import { createPersistMiddleware } from "../middleware";
-import type { Maybe, UserProps } from "@/types";
 
 interface SignOutOptions {
   callbackUrl?: string;
@@ -19,13 +20,11 @@ interface SignInOptions {
 interface UserStore {
   hydrate: () => void;
   isHydrated: boolean;
-  signin: (data: UserProps, token: string, options?: SignInOptions) => void;
+  signin: (payload: SigninResponse, options?: SignInOptions) => void;
   signout: (options?: SignOutOptions) => void;
   user: Maybe<UserProps>;
 }
 
-export const STORAGE_KEY = "user-store";
-export const COOKIE_NAME = "";
 const COOKIE_OPTIONS = {
   path: "/",
   sameSite: "lax" as const,
@@ -66,16 +65,7 @@ class UserManager {
 }
 
 const useUserStore = createPersistMiddleware<UserStore>(STORAGE_KEY, (set, get) => ({
-  user: {
-    createdAt: new Date(),
-    email: "johnnyappleseed@example.com",
-    id: "1",
-    image: "/assets/images/avatar.png",
-    name: "Johnny Appleseed",
-    permissions: [],
-    role: "ADMIN",
-    updatedAt: new Date(),
-  },
+  user: null,
   isHydrated: false,
   hydrate: () => {
     if (typeof window !== "undefined" && !get().isHydrated) {
@@ -83,11 +73,11 @@ const useUserStore = createPersistMiddleware<UserStore>(STORAGE_KEY, (set, get) 
       set({ user, isHydrated: true });
     }
   },
-  signin: (user, token, options) => {
+  signin: (payload, options) => {
     try {
       const cookieOptions = UserManager.getCookieOptions(options?.remember, options?.expiresIn);
-      Cookies.set(COOKIE_NAME, token, cookieOptions);
-      set({ user });
+      Cookies.set(COOKIE_NAME, payload.accessToken, cookieOptions);
+      set({ user: payload.user });
       if (options?.redirectUrl) {
         UserManager.redirect(options.redirectUrl);
       }

@@ -3,8 +3,8 @@
 import { RiArrowUpLine } from "@remixicon/react";
 import { motion } from "framer-motion";
 
-import { AnimatedCounter } from "@/components/motion";
 import { staggerContainerVariants, staggerItemVariants, useReducedMotion, cardHoverVariants } from "@/lib/motion";
+import { AnimatedCounter } from "@/components/motion";
 import { ScrollArea } from "@/components/shared";
 import { cn } from "@/lib";
 
@@ -32,12 +32,11 @@ const Page = () => {
         {metrics.map((metric, index) => (
           <motion.div
             className={cn(
-              "space-y-4 rounded-md border bg-white p-4 transition-shadow",
+              "hover:border-primary-400 space-y-4 rounded-md border bg-white p-4 transition-all duration-500",
               !shouldReduceMotion && "cursor-pointer",
             )}
             key={index}
             variants={itemVariants}
-            whileHover={shouldReduceMotion ? undefined : cardHoverVariants.hover}
             whileTap={shouldReduceMotion ? undefined : cardHoverVariants.tap}
           >
             <div className="flex w-full items-center justify-between">
@@ -106,9 +105,7 @@ const Page = () => {
           <p className="font-medium">Recent Campaigns</p>
           <p className="text-sm text-gray-600">Your latest ad campaigns</p>
         </div>
-        <div className="flex h-[100px] items-center justify-center text-gray-400">
-          Campaign list will be displayed here
-        </div>
+        <div className="flex h-75 items-center justify-center text-gray-400">Campaign list will be displayed here</div>
       </motion.div>
     </ScrollArea>
   );

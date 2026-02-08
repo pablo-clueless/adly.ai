@@ -1,18 +1,22 @@
 "use client";
 
 import { RiGoogleLine } from "@remixicon/react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
+import { useState } from "react";
 import Link from "next/link";
 import * as Yup from "yup";
 
-import { useGoogleMutation, useSigninMutation } from "@/services/auth/api";
 import { formContainerVariants, formItemVariants, shakeVariants, useReducedMotion } from "@/lib/motion";
+import { useGoogleMutation } from "@/services/auth/api";
 import { ButtonLoader } from "@/components/shared/loader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useUserStore } from "@/store/stores";
 import type { SignInDto } from "@/types";
+
+import { mockApiAuth } from "@/__mock__/index.service";
 
 const schema = Yup.object<SignInDto>({
   email: Yup.string().required("Email is required").email("Please enter a valid email"),
@@ -22,24 +26,36 @@ const schema = Yup.object<SignInDto>({
 });
 
 const Page = () => {
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const { signin } = useUserStore();
+  // const router = useRouter();
 
   const [, { isLoading: isGoogleLoading }] = useGoogleMutation();
-  const [signin, { isLoading: isSigninLoading, isError }] = useSigninMutation();
+  // const [signin, { isLoading: isSigninLoading, isError }] = useSigninMutation();
 
   const { errors, handleChange, handleSubmit, touched, values } = useFormik<SignInDto>({
     initialValues: { email: "", password: "" },
     onSubmit: (values) => {
-      signin(values)
-        .unwrap()
+      setIsLoading(true);
+      mockApiAuth(values)
         .then((response) => {
-          console.log({ response });
-          router.push("/dashboard");
+          setIsLoading(false);
+          signin(response, { redirectUrl: "/dashboard", remember: true });
         })
         .catch((error) => {
-          console.error(error);
+          setIsLoading(false);
+          console.error({ error });
         });
+      // signin(values)
+      //   .unwrap()
+      //   .then((response) => {
+      //     console.log({ response });
+      //     router.push("/dashboard");
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
     },
     validationSchema: schema,
   });
@@ -67,7 +83,8 @@ const Page = () => {
           className="w-full space-y-4"
           onSubmit={handleSubmit}
           variants={itemVariants}
-          animate={isError && !shouldReduceMotion ? "shake" : undefined}
+          // animate={isError && !shouldReduceMotion ? "shake" : undefined}
+          animate={!shouldReduceMotion ? "shake" : undefined}
         >
           <motion.div variants={shouldReduceMotion ? {} : { ...itemVariants, ...shakeVariants }}>
             <Input
@@ -92,8 +109,8 @@ const Page = () => {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <Button className="w-full" type="submit" disabled={isSigninLoading}>
-              {isSigninLoading ? <ButtonLoader /> : "Continue"}
+            <Button className="w-full" type="submit" disabled={isLoading}>
+              {isLoading ? <ButtonLoader /> : "Continue"}
             </Button>
           </motion.div>
         </motion.form>

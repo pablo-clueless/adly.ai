@@ -3,9 +3,6 @@
 import { useReducedMotion as framerUseReducedMotion } from "framer-motion";
 import type { Transition, Variants } from "framer-motion";
 
-// ============================================================================
-// Easing Curves
-// ============================================================================
 export const easings = {
   easeOut: [0.16, 1, 0.3, 1] as const,
   easeInOut: [0.65, 0, 0.35, 1] as const,
@@ -15,9 +12,6 @@ export const easings = {
   springSmooth: { type: "spring", stiffness: 200, damping: 35 } as const,
 };
 
-// ============================================================================
-// Standard Transitions
-// ============================================================================
 export const transitions = {
   fast: { duration: 0.15, ease: easings.easeOut } as Transition,
   normal: { duration: 0.3, ease: easings.easeOut } as Transition,
@@ -27,9 +21,6 @@ export const transitions = {
   springSmooth: easings.springSmooth as Transition,
 };
 
-// ============================================================================
-// Fade Variants
-// ============================================================================
 export const fadeVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -59,9 +50,6 @@ export const fadeInDownVariants: Variants = {
   exit: { opacity: 0, y: 10, transition: transitions.fast },
 };
 
-// ============================================================================
-// Slide Variants
-// ============================================================================
 export const slideUpVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -102,9 +90,6 @@ export const slideRightVariants: Variants = {
   exit: { opacity: 0, x: 20, transition: transitions.fast },
 };
 
-// ============================================================================
-// Scale Variants
-// ============================================================================
 export const scaleVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95 },
   visible: {
@@ -125,9 +110,6 @@ export const scaleUpVariants: Variants = {
   exit: { opacity: 0, scale: 0.9, transition: transitions.fast },
 };
 
-// ============================================================================
-// Stagger Container/Item Variants
-// ============================================================================
 export const staggerContainerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -166,9 +148,6 @@ export const staggerScaleItemVariants: Variants = {
   exit: { opacity: 0, scale: 0.95, transition: transitions.fast },
 };
 
-// ============================================================================
-// Page Transition Variants
-// ============================================================================
 export const pageVariants: Variants = {
   initial: { opacity: 0, y: 10 },
   animate: {
@@ -189,9 +168,6 @@ export const pageSlideVariants: Variants = {
   exit: { opacity: 0, x: -20, transition: { duration: 0.2 } },
 };
 
-// ============================================================================
-// Interactive Variants (Hover/Tap)
-// ============================================================================
 export const hoverScaleVariants = {
   initial: { scale: 1 },
   hover: { scale: 1.02, transition: transitions.fast },
@@ -217,9 +193,6 @@ export const cardHoverVariants = {
   tap: { scale: 0.98, transition: transitions.fast },
 };
 
-// ============================================================================
-// Form Animation Variants
-// ============================================================================
 export const formContainerVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -251,16 +224,10 @@ export const shakeVariants: Variants = {
   },
 };
 
-// ============================================================================
-// Utility Hook - Reduced Motion
-// ============================================================================
 export const useReducedMotion = () => {
   return framerUseReducedMotion();
 };
 
-// ============================================================================
-// Helper Functions
-// ============================================================================
 export const getStaggerDelay = (index: number, baseDelay = 0.08) => ({
   delay: index * baseDelay,
 });
@@ -276,7 +243,6 @@ export const createStaggerVariants = (staggerDelay = 0.08, delayChildren = 0.1):
   },
 });
 
-// For reduced motion support - returns static variants
 export const getReducedMotionVariants = (shouldReduce: boolean, variants: Variants): Variants => {
   if (shouldReduce) {
     return {

@@ -8,7 +8,6 @@ import type { UserProps } from "@/types";
 const makeUser = (overrides: Partial<UserProps> = {}): UserProps =>
   ({
     id: "u1",
-    name: "Test User",
     email: "t@example.com",
     role: "admin",
     permissions: ["read", "write", "delete"],

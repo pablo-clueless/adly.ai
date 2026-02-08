@@ -56,13 +56,12 @@ export const Sidebar = ({ type }: Props) => {
         <div className="space-y-2">
           {routes.map(({ href, icon: Icon, label }, index) => {
             const isActive = isOnPath(href);
-
             return (
               <Link
                 className={cn(
                   "relative flex items-center gap-x-4 rounded-md text-sm transition-colors",
                   isActive ? "text-primary-500 font-semibold" : "hover:bg-primary-50/50 text-gray-500",
-                  isSidebarOpen ? "px-3 py-2" : "p-2",
+                  isSidebarOpen ? "px-3 py-2" : "p-2.5",
                 )}
                 href={href}
                 key={index}

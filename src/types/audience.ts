@@ -1,19 +1,19 @@
 import type { Maybe } from "./app";
 
 export interface AudienceProps {
-  createdAt: string;
+  created_at: string;
   description?: string;
   id: string;
   name: string;
   status: "active" | "paused" | "archived";
   targeting: {
-    ageRange?: { min?: number; max?: number };
+    age_range?: { min?: number; max?: number };
     genders?: ("male" | "female" | "unknown")[];
     locations?: string[];
     interests?: string[];
     behaviors?: string[];
-    customAudiences?: string[];
-    excludedAudiences?: string[];
+    custom_audiences?: string[];
+    excluded_audiences?: string[];
   };
-  updatedAt: Maybe<Date>;
+  updated_at: Maybe<string>;
 }

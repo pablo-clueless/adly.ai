@@ -84,7 +84,6 @@ const Page = () => {
             className="space-y-3 rounded-lg border bg-white p-5 shadow-sm"
             key={index}
             variants={itemVariants}
-            whileHover={shouldReduceMotion ? undefined : cardHoverVariants.hover}
             whileTap={shouldReduceMotion ? undefined : cardHoverVariants.tap}
           >
             <div className="flex w-full items-center justify-between">

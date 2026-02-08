@@ -45,3 +45,10 @@ export const formatCurrency = (amount: number, currency = "USD") => {
     minimumFractionDigits: 2,
   }).format(amount);
 };
+
+export const getTitle = (pathname?: string) => {
+  if (!pathname) return "Dashboard";
+  const paths = pathname.split("/").filter(Boolean);
+  if (paths.length === 0) return "Dashboard";
+  return paths[paths.length - 1].charAt(0).toUpperCase() + paths[paths.length - 1].slice(1);
+};

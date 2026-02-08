@@ -1,3 +1,5 @@
+import type { UserProps } from "./user";
+
 export interface SignUpDto {
   email: string;
   first_name: string;
@@ -9,6 +11,12 @@ export interface SignUpDto {
 export interface SignInDto {
   email: string;
   password: string;
+}
+
+export interface SigninResponse {
+  accessToken: string;
+  refreshToken: string;
+  user: UserProps;
 }
 
 export interface GoogleSigninDto {
