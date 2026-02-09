@@ -1,7 +1,7 @@
 "use client";
 
+import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis } from "recharts";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import {
   RiArrowUpLine,
   RiArrowDownLine,
@@ -13,10 +13,12 @@ import {
   RiPercentLine,
 } from "@remixicon/react";
 
+import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { staggerContainerVariants, staggerItemVariants, useReducedMotion } from "@/lib/motion";
 import { MOCK_PLATFORM_METRICS, MOCK_CAMPAIGNS, MOCK_ADMIN_USERS } from "@/__mock__";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn, formatCurrency, getInitials } from "@/lib";
 import { ScrollArea } from "@/components/shared";
-import { cn, formatCurrency } from "@/lib";
 
 const Page = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -26,6 +28,61 @@ const Page = () => {
   const totalClicks = MOCK_CAMPAIGNS.reduce((sum, c) => sum + c.clicks, 0);
   const totalImpressions = MOCK_CAMPAIGNS.reduce((sum, c) => sum + c.impressions, 0);
   const avgCTR = totalImpressions > 0 ? ((totalClicks / totalImpressions) * 100).toFixed(2) : 0;
+
+  const performanceChartConfig: ChartConfig = {
+    clicks: {
+      label: "Clicks",
+      color: "blue",
+    },
+    impressions: {
+      label: "Impressions",
+      color: "purple",
+    },
+  };
+
+  const revenueChartConfig: ChartConfig = {
+    revenue: {
+      label: "Revenue",
+      color: "var(--color-primary-50)",
+    },
+  };
+
+  const userChartConfig: ChartConfig = {
+    revenue: {
+      label: "Users",
+      color: "var(--color-primary-50)",
+    },
+  };
+
+  const revenueData = [
+    { month: "Jan", revenue: 1000 },
+    { month: "Feb", revenue: 1500 },
+    { month: "Mar", revenue: 1200 },
+    { month: "Apr", revenue: 1800 },
+    { month: "May", revenue: 2000 },
+    { month: "Jun", revenue: 2500 },
+    { month: "Jul", revenue: 2300 },
+    { month: "Aug", revenue: 2700 },
+    { month: "Sep", revenue: 2600 },
+    { month: "Oct", revenue: 2900 },
+    { month: "Nov", revenue: 3100 },
+    { month: "Dec", revenue: 3500 },
+  ];
+
+  const performanceData = [
+    { month: "Jan", clicks: 12000, impressions: 100000 },
+    { month: "Feb", clicks: 15000, impressions: 120000 },
+    { month: "Mar", clicks: 13000, impressions: 110000 },
+    { month: "Apr", clicks: 16000, impressions: 130000 },
+    { month: "May", clicks: 14000, impressions: 120000 },
+    { month: "Jun", clicks: 17000, impressions: 140000 },
+    { month: "Jul", clicks: 15000, impressions: 120000 },
+    { month: "Aug", clicks: 16000, impressions: 130000 },
+    { month: "Sep", clicks: 14000, impressions: 120000 },
+    { month: "Oct", clicks: 13000, impressions: 110000 },
+    { month: "Nov", clicks: 12000, impressions: 100000 },
+    { month: "Dec", clicks: 15000, impressions: 120000 },
+  ];
 
   const metrics = [
     {
@@ -52,7 +109,7 @@ const Page = () => {
       icon: RiMoneyDollarCircleLine,
       trend: "+15.7%",
       trendUp: true,
-      color: "text-purple-500",
+      color: "var(--color-primary-50)",
       bgColor: "bg-purple-50",
     },
     {
@@ -122,7 +179,6 @@ const Page = () => {
             );
           })}
         </motion.div>
-
         <motion.div className="grid w-full grid-cols-2 gap-5" variants={containerVariants}>
           <motion.div className="space-y-4 rounded-xl border bg-white p-4" variants={itemVariants}>
             <div>
@@ -130,21 +186,33 @@ const Page = () => {
               <p className="text-sm text-gray-600">Monthly revenue trend</p>
             </div>
             <div className="flex h-[250px] items-center justify-center text-gray-400">
-              Revenue chart will be displayed here
+              <ChartContainer className="h-full w-full" config={revenueChartConfig}>
+                <BarChart accessibilityLayer data={revenueData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <Bar dataKey="revenue" fill="var(--color-primary-50)" />
+                  <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                </BarChart>
+              </ChartContainer>
             </div>
           </motion.div>
-
           <motion.div className="space-y-4 rounded-xl border bg-white p-4" variants={itemVariants}>
             <div>
               <p className="font-medium">User Growth</p>
               <p className="text-sm text-gray-600">New user registrations</p>
             </div>
             <div className="flex h-[250px] items-center justify-center text-gray-400">
-              User growth chart will be displayed here
+              <ChartContainer className="h-full w-full" config={userChartConfig}>
+                <LineChart accessibilityLayer data={revenueData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <Line dataKey="revenue" fill="var(--color-primary-50)" />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                </LineChart>
+              </ChartContainer>
             </div>
           </motion.div>
         </motion.div>
-
         <motion.div className="grid w-full grid-cols-2 gap-5" variants={containerVariants}>
           <motion.div className="space-y-4 rounded-xl border bg-white p-4" variants={itemVariants}>
             <div>
@@ -168,7 +236,6 @@ const Page = () => {
               ))}
             </div>
           </motion.div>
-
           <motion.div className="space-y-4 rounded-xl border bg-white p-4" variants={itemVariants}>
             <div>
               <p className="font-medium">Top Spending Users</p>
@@ -182,15 +249,10 @@ const Page = () => {
                       {index + 1}
                     </span>
                     <div className="flex items-center gap-2">
-                      <div className="relative size-8">
-                        <Image
-                          alt={user.full_name}
-                          className="size-8 rounded-full"
-                          fill
-                          sizes="100%"
-                          src={user.profile.avatar_url}
-                        />
-                      </div>
+                      <Avatar className="size-8">
+                        <AvatarImage src={user.profile.avatar_url} />
+                        <AvatarFallback className="text-xs">{getInitials(user.full_name)}</AvatarFallback>
+                      </Avatar>
                       <div>
                         <p className="text-sm font-medium">{user.full_name}</p>
                         <p className="text-xs text-gray-500">{user.total_campaigns} campaigns</p>
@@ -203,14 +265,21 @@ const Page = () => {
             </div>
           </motion.div>
         </motion.div>
-
         <motion.div className="w-full space-y-4 rounded-xl border bg-white p-4" variants={itemVariants}>
           <div>
             <p className="font-medium">Campaign Performance Distribution</p>
             <p className="text-sm text-gray-600">By status and performance metrics</p>
           </div>
           <div className="flex h-[200px] items-center justify-center text-gray-400">
-            Distribution chart will be displayed here
+            <ChartContainer className="h-full w-full" config={performanceChartConfig}>
+              <LineChart accessibilityLayer data={performanceData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <Line dataKey="clicks" fill="blue" stroke="blue" />
+                <Line dataKey="impressions" fill="purple" stroke="purple" />
+                <ChartTooltip content={<ChartTooltipContent />} />
+              </LineChart>
+            </ChartContainer>
           </div>
         </motion.div>
       </motion.div>

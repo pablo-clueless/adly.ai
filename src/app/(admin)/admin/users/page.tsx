@@ -12,13 +12,13 @@ import {
   RiUserAddLine,
 } from "@remixicon/react";
 
-import { DataTable, Pagination } from "@/components/shared";
 import { slideUpVariants, useReducedMotion } from "@/lib/motion";
+import { DataTable, Pagination } from "@/components/shared";
 import { columns } from "@/config/columns/admin-users";
-import type { AdminUserProps } from "@/types";
+import { useDebounce, useMockApi } from "@/hooks";
 import { Button } from "@/components/ui/button";
+import type { AdminUserProps } from "@/types";
 import { Input } from "@/components/ui/input";
-import { useDebounce } from "@/hooks";
 import { cn, paginate } from "@/lib";
 
 import { MOCK_ADMIN_USERS } from "@/__mock__";
@@ -35,6 +35,8 @@ const Page = () => {
   const [page, setPage] = useState(1);
 
   const query = useDebounce(searchTerm, 500);
+
+  const { isLoading, triggerCall } = useMockApi({ loadTime: 5000, expectedResponse: "success", mockData: {} });
 
   const filtered = useMemo(() => {
     let users = [...MOCK_ADMIN_USERS];
@@ -118,9 +120,15 @@ const Page = () => {
     setSelectedRows({});
   }, [hasSelection, selectedUsers]);
 
-  const handleRefresh = useCallback(() => {
-    toast.success("Users refreshed");
-  }, []);
+  const handleRefresh = () => {
+    triggerCall()
+      .then(() => {
+        toast.success("Users refreshed");
+      })
+      .catch((error) => {
+        console.log({ error });
+      });
+  };
 
   const variants = shouldReduceMotion ? {} : slideUpVariants;
 
@@ -149,7 +157,6 @@ const Page = () => {
           <p className="mt-1 text-sm text-gray-500">Manage platform users and their permissions</p>
         </div>
       </motion.div>
-
       <div className="space-y-2">
         <motion.div
           className="flex w-full items-center justify-between"
@@ -188,12 +195,11 @@ const Page = () => {
             <Button size="sm">
               <RiUserAddLine /> Add User
             </Button>
-            <Button size="sm" variant="outline" onClick={handleRefresh}>
-              <RiRefreshLine /> Refresh
+            <Button disabled={isLoading} size="sm" variant="outline" onClick={handleRefresh}>
+              <RiRefreshLine className={cn("", isLoading && "animate-spin")} /> Refresh
             </Button>
           </motion.div>
         </motion.div>
-
         <motion.div className="flex w-full items-center justify-between gap-x-4">
           <Input
             wrapperClassName="w-full sm:w-1/3"
@@ -210,7 +216,6 @@ const Page = () => {
             {hasSelection && ` (${selectedUsers.length} selected)`}
           </div>
         </motion.div>
-
         <motion.div className="flex w-full items-center gap-x-2">
           <Button size="sm" variant="outline" onClick={handleActivate} disabled={!hasSelection}>
             <RiLockUnlockLine /> Activate

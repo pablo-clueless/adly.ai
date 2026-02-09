@@ -1,8 +1,8 @@
 "use client";
 
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
-import Image from "next/image";
 import {
   RiArrowUpLine,
   RiArrowDownLine,
@@ -13,12 +13,36 @@ import {
   RiDownloadLine,
 } from "@remixicon/react";
 
+import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { staggerContainerVariants, staggerItemVariants, useReducedMotion } from "@/lib/motion";
 import { MOCK_PLATFORM_METRICS, MOCK_ADMIN_USERS, MOCK_FINANCES } from "@/__mock__";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn, formatCurrency, getInitials } from "@/lib";
 import { ScrollArea } from "@/components/shared";
 import { Button } from "@/components/ui/button";
-import { cn, formatCurrency } from "@/lib";
 import { formatDistanceToNow } from "date-fns";
+
+const revenueChartConfig: ChartConfig = {
+  revenue: {
+    label: "Revenue",
+    color: "var(--color-primary-50)",
+  },
+};
+
+const revenueData = [
+  { month: "Jan", revenue: 1000 },
+  { month: "Feb", revenue: 1500 },
+  { month: "Mar", revenue: 1200 },
+  { month: "Apr", revenue: 1800 },
+  { month: "May", revenue: 2000 },
+  { month: "Jun", revenue: 2500 },
+  { month: "Jul", revenue: 2300 },
+  { month: "Aug", revenue: 2700 },
+  { month: "Sep", revenue: 2600 },
+  { month: "Oct", revenue: 2900 },
+  { month: "Nov", revenue: 3100 },
+  { month: "Dec", revenue: 3500 },
+];
 
 const Page = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -70,6 +94,10 @@ const Page = () => {
   const recentTransactions = MOCK_FINANCES.slice(0, 8);
   const topSpenders = [...MOCK_ADMIN_USERS].sort((a, b) => b.total_spend - a.total_spend).slice(0, 5);
 
+  const sorted = recentTransactions.sort((a, b) => {
+    return new Date(b.start_date).getTime() - new Date(a.start_date).getTime();
+  });
+
   const handleExport = () => {
     toast.success("Exporting financial report...");
   };
@@ -118,10 +146,16 @@ const Page = () => {
               <p className="text-sm text-gray-600">Last 12 months</p>
             </div>
             <div className="flex h-[300px] items-center justify-center text-gray-400">
-              Revenue trend chart will be displayed here
+              <ChartContainer className="h-full w-full" config={revenueChartConfig}>
+                <BarChart accessibilityLayer data={revenueData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <Bar dataKey="revenue" fill="var(--color-primary-50)" />
+                  <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                </BarChart>
+              </ChartContainer>
             </div>
           </motion.div>
-
           <motion.div className="space-y-4 rounded-xl border bg-white p-4" variants={itemVariants}>
             <div>
               <p className="font-medium">Top Spenders</p>
@@ -135,15 +169,10 @@ const Page = () => {
                       {index + 1}
                     </span>
                     <div className="flex items-center gap-2">
-                      <div className="relative size-8">
-                        <Image
-                          alt={user.full_name}
-                          className="size-8 rounded-full"
-                          fill
-                          sizes="100%"
-                          src={user.profile.avatar_url}
-                        />
-                      </div>
+                      <Avatar className="size-8">
+                        <AvatarImage src={user.profile.avatar_url} />
+                        <AvatarFallback>{getInitials(user.full_name)}</AvatarFallback>
+                      </Avatar>
                       <div>
                         <p className="text-sm font-medium">{user.full_name}</p>
                         <p className="text-xs text-gray-500">{user.profile.company_name}</p>
@@ -156,7 +185,6 @@ const Page = () => {
             </div>
           </motion.div>
         </motion.div>
-
         <motion.div className="w-full space-y-4 rounded-xl border bg-white p-4" variants={itemVariants}>
           <div className="flex items-center justify-between">
             <div>
@@ -177,7 +205,7 @@ const Page = () => {
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {recentTransactions.map((transaction) => (
+                {sorted.map((transaction) => (
                   <tr key={transaction.id} className="text-sm">
                     <td className="py-3 font-medium capitalize">{transaction.name}</td>
                     <td className="py-3">{formatCurrency(transaction.budget)}</td>
