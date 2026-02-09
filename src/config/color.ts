@@ -1,4 +1,11 @@
-import type { AdStatus, AlertSeverity, AlertStatus, CampaignStatus, ModerationStatus } from "@/types";
+import type {
+  AdStatus,
+  AlertSeverity,
+  AlertStatus,
+  CampaignStatus,
+  ModerationStatus,
+  NotificationStatus,
+} from "@/types";
 
 export const CAMPAIGN_STATUS: Record<CampaignStatus, string> = {
   active: "bg-green-50 text-green-600 border-green-600",
@@ -39,4 +46,10 @@ export const MODERATION_STATUS: Record<ModerationStatus, string> = {
   pending: "bg-yellow-50 text-yellow-600 border-yellow-600",
   approved: "bg-green-50 text-green-600 border-green-600",
   rejected: "bg-red-50 text-red-600 border-red-600",
+};
+
+export const NOTIFICATION_STATUS: Record<NotificationStatus, string> = {
+  unread: "bg-red-50 text-red-600 border-red-600",
+  read: "bg-green-50 text-green-600 border-green-600",
+  pending: "bg-yellow-50 text-yellow-600 border-yellow-600",
 };

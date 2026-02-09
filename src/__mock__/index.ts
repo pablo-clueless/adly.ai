@@ -12,6 +12,9 @@ import type {
   CampaignStatus,
   FinanceProps,
   ModerationItemProps,
+  NotificationProps,
+  NotificationStatus,
+  NotificationType,
   SystemAlertProps,
 } from "@/types";
 
@@ -108,7 +111,6 @@ export const MOCK_AUDIENCES: AudienceProps[] = Array.from({ length: 20 }, () => 
   updated_at: new Date().toISOString(),
 }));
 
-// Admin Mock Data
 const ACTIVITY_TYPES: ActivityType[] = ["login", "logout", "create", "update", "delete", "export", "import"];
 const RESOURCE_TYPES = ["campaign", "ad", "audience", "user", "budget", "settings"];
 
@@ -127,7 +129,7 @@ export const MOCK_ADMIN_USERS: AdminUserProps[] = Array.from({ length: 50 }, () 
     role: faker.helpers.arrayElement(["ADMIN", "USER"] as const),
     permissions: [],
     profile: {
-      avatar_url: faker.image.avatar(),
+      avatar_url: "",
       phone_number: faker.phone.number(),
       company_name: faker.company.name(),
       job_title: faker.person.jobTitle(),
@@ -218,3 +220,15 @@ export const MOCK_PLATFORM_METRICS = {
   total_impressions: 892456123,
   pending_moderation: 23,
 };
+
+export const MOCK_NOTIFICATION_STATUS: NotificationStatus[] = ["pending", "read", "unread"];
+export const MOCK_NOTIFICATION_TYPE: NotificationType[] = ["ERROR", "INFO", "SUCCESS", "SYSTEM", "WARNING"];
+
+export const MOCK_NOTIFICATIONS: NotificationProps[] = Array.from({ length: 20 }, () => ({
+  id: faker.string.uuid(),
+  message: faker.lorem.sentences({ max: 5, min: 2 }),
+  status: getRandomItem(MOCK_NOTIFICATION_STATUS),
+  timestamp: faker.date.between({ from: "2024-01-01T00:00:00.000Z", to: new Date().toISOString() }).toISOString(),
+  title: faker.lorem.words({ max: 7, min: 4 }),
+  type: getRandomItem(MOCK_NOTIFICATION_TYPE),
+}));

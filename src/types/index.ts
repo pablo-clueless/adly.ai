@@ -5,5 +5,6 @@ export * from "./audience";
 export * from "./auth";
 export * from "./campaign";
 export * from "./finance";
+export * from "./notification";
 export * from "./schedule";
 export * from "./user";

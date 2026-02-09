@@ -30,12 +30,21 @@ export const columns: ColumnDef<AdminUserProps>[] = [
   },
   {
     accessorKey: "full_name",
-    header: "User",
+    header: ({ column }) => (
+      <div className="flex items-center gap-x-2">
+        <button onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          <RiArrowUpDownLine className="size-4" />
+        </button>
+        User
+      </div>
+    ),
     cell: ({ row }) => (
       <div className="flex items-center gap-3">
         <Avatar className="size-8">
           <AvatarImage src={row.original.profile.avatar_url} />
-          <AvatarFallback>{getInitials(row.original.full_name)}</AvatarFallback>
+          <AvatarFallback className="bg-primary-50/50 text-primary-500 text-xs font-medium">
+            {getInitials(row.original.full_name)}
+          </AvatarFallback>
         </Avatar>
         <div>
           <p className="font-medium">{row.original.full_name}</p>
